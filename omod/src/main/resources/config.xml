@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//OpenMRS//DTD OpenMRS Config 1.0//EN" "https://resources.openmrs.org/doctype/config-1.6.dtd">
+<module configVersion="1.6">
+
+	<id>nidandocs</id>
+	<name>Nidan Clinical Documents</name>
+	<version>1.0.0-SNAPSHOT</version>
+	<package>org.openmrs.module.nidandocs</package>
+	<author>Dipak Thapa</author>
+	<description>
+		Captures an immutable rendition of a clinician's narrative when an encounter is
+		finalised, and stores it as an Attachment. O3 prints these client-side and stores
+		nothing, so without this there is no artifact for the Odoo document desk, the
+		insurance claim packet or the patient portal to fetch.
+	</description>
+	<activator>org.openmrs.module.nidandocs.NidanDocsActivator</activator>
+
+	<require_version>2.8.0</require_version>
+
+	<globalProperty>
+		<property>nidandocs.enabled</property>
+		<defaultValue>false</defaultValue>
+		<description>Master switch. Off by default: writing a permanent clinical document is something a site should turn on deliberately, not something that starts happening because a module was installed.</description>
+	</globalProperty>
+
+	<globalProperty>
+		<property>nidandocs.async</property>
+		<defaultValue>true</defaultValue>
+		<description>Render after the transaction commits rather than inside it. Off only for testing: rendering a PDF inside saveEncounter puts that latency in front of a clinician signing a note.</description>
+	</globalProperty>
+
+</module>
